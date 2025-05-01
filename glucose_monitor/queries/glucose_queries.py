@@ -6,20 +6,27 @@ from sqlalchemy.orm import Session
 from glucose_monitor.database import DB_ENGINE, GlucoseLevel
 from glucose_monitor.custom_exceptions import NoDataFoundError
 from glucose_monitor.utils import parse_glucose_level
+from glucose_monitor.utils import parse_glucose_levels
+from datetime import datetime
 
 
-def get_glucose_for_user(user_id: UUID):
+def get_glucose_for_user(
+    user_id: UUID,
+    start: datetime | None,
+    stop: datetime | None,
+):
     """Select glucose levels for user."""
     with Session(DB_ENGINE) as session:
-        statement = (
-            select(GlucoseLevel).where(GlucoseLevel.user_uuid == user_id)
-            # .where(GlucoseLevel.user_uuid == user_id)
-            # .where(GlucoseLevel.user_uuid == user_id)
-        )
+        statement = select(GlucoseLevel).where(GlucoseLevel.user_uuid == user_id)
+        if start and stop:
+            statement = statement.where(GlucoseLevel.device_timestamp >= start).where(
+                GlucoseLevel.device_timestamp <= stop
+            )
         rows = session.execute(statement).all()
         if len(rows) == 0:
             raise NoDataFoundError()
-    return rows
+        parsed_glucose_levels = parse_glucose_levels(rows)
+    return parsed_glucose_levels
 
 
 def get_glucose_reading_by_id(
