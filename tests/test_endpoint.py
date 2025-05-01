@@ -74,7 +74,7 @@ def test_glucose_endpoint_by_user(
     )
     setup_datebase.add(glucose_entry)
     setup_datebase.commit()
-    url = f"/api/v1/levels"
+    url = "/api/v1/levels"
     params = {
         "user_uuid": user_uuid,
     }

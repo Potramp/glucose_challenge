@@ -26,7 +26,7 @@ glucose_router = APIRouter()
     status_code=status.HTTP_200_OK,
 )
 def get_glucose_levels(
-    user_id=UUID,
+    user_id: UUID,
     api_key=Depends(get_api_key),
     # page: int = 0,
     # entries_per_page: Annotated[int, Query(ge=1, le=100)] = settings.PAGE_SIZE,
@@ -40,8 +40,8 @@ def get_glucose_levels(
         Returns a JSON response with the Glucose levels data
     """
     logger.info("Looking for available glucose data.")
-    # for some reason the user_id is turning into a str
-    user_id = UUID(user_id)
+    # # for some reason the user_id is turning into a str
+    # user_id = UUID(user_id)
     glucose_levels = get_glucose_for_user(
         user_id,
         # page,
@@ -62,8 +62,8 @@ def get_glucose_levels(
     "/level/",
     tags=["level/"],
     summary=(
-        "Retrieve ( GET ) a list of glucose levels for a given"
-        "user_id , filter by start and stop timestamps (optional). This endpoint"
+        "Retrieve a glucose reading from "
+        "entry_id , filter by start and stop timestamps (optional). This endpoint"
         "should support pagination, sorting, and a way to limit the number of"
         "glucose levels returned."
     ),
@@ -71,22 +71,18 @@ def get_glucose_levels(
     status_code=status.HTTP_200_OK,
 )
 def get_glucose_levels_by_id(
-    entry_id=UUID,
+    entry_id: UUID,
     api_key=Depends(get_api_key),
     # page: int = 0,
     # entries_per_page: Annotated[int, Query(ge=1, le=100)] = settings.PAGE_SIZE,
 ) -> list[GlucoseResponse]:
     """
-    ## User Glucose level endpoint
-    List glucose levels for a given user_id. Optional
-    filters of start and stop timestamps. Supports
-    pagination and sorting.
+    ## Single reading Glucose level endpoint
+    Retrieve a glucose reading from entry_id.
     Returns:
         Returns a JSON response with the Glucose levels data
     """
     logger.info("Looking for available glucose data.")
-    # for some reason the entry_uuid is turning into a str
-    entry_id = UUID(entry_id)
     glucose_levels = get_glucose_reading_by_id(
         entry_id,
     )

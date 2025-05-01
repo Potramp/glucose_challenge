@@ -28,6 +28,16 @@ app.include_router(glucose_router, prefix=V1_PREFIX)
 
 @app.on_event("startup")
 def on_startup():
+    """
+    Create db on app startup.
+
+    This seems to be deprecated, but I
+    would rather keep it because it seems to be working
+    when I spin up the API.
+
+    In any case, could replace by a python script
+    to create and populate db for the challenge.
+    """
     create_db_and_tables()
 
 
