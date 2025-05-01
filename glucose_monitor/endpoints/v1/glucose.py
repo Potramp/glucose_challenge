@@ -45,9 +45,6 @@ def get_glucose_levels(
         Returns a JSON response with the Glucose levels data
     """
     logger.info("Looking for available glucose data.")
-    from ipdb import sset_trace
-
-    sset_trace()
     glucose_levels, total_count = get_glucose_for_user(
         user_uuid,
         start,
