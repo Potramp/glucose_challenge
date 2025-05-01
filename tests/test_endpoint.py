@@ -1,6 +1,6 @@
 """Test the glucose endpoint."""
 
-from uuid import UUID, uuid4
+from uuid import UUID
 from datetime import datetime, timedelta
 from inline_snapshot import snapshot
 from fastapi.testclient import TestClient
@@ -190,8 +190,7 @@ def test_glucose_endpoint_by_user_with_start_stop(
     # Then
     assert response.status_code == 200
     assert response.json() == snapshot(
-        [
-            {
+        [{'uuid':'01cc74e4-29c7-4425-8431-6d1a955a742f','device':'MyDevice','device_id':'28bcc70a-5e92-49a7-9bb2-a764d9f7374b','device_timestamp':'2022-01-01T00:00:00','recording_type':0 ,'glucose_value_history':13 ,'glucose_scan':15 }, {
                 "uuid": "20c8a1d4-5f32-4e25-adbd-cf80218cbb5a",
                 "device": "MyDevice",
                 "device_id": "28bcc70a-5e92-49a7-9bb2-a764d9f7374b",

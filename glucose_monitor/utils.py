@@ -5,6 +5,15 @@ from glucose_monitor.custom_exceptions import ParsingError
 from glucose_monitor.models.v1.model_glucose import GlucoseResponse
 
 
+def get_offset(page: int, entries_per_page: int) -> int:
+    """Get offset from page param."""
+    if page:
+        offset = (page - 1) * entries_per_page
+    else:
+        offset = 0
+    return offset
+
+
 def parse_glucose_level(rows: list) -> GlucoseResponse:
     """Parse db data into object."""
     try:
