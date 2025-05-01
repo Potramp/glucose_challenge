@@ -3,7 +3,7 @@
 from uuid import UUID
 from datetime import datetime
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import Mapped, mapped_column
 from glucose_monitor.settings import db_settings
