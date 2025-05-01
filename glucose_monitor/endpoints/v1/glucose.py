@@ -40,8 +40,6 @@ def get_glucose_levels(
         Returns a JSON response with the Glucose levels data
     """
     logger.info("Looking for available glucose data.")
-    # # for some reason the user_id is turning into a str
-    # user_id = UUID(user_id)
     glucose_levels = get_glucose_for_user(
         user_id,
         # page,
@@ -73,8 +71,6 @@ def get_glucose_levels(
 def get_glucose_levels_by_id(
     entry_id: UUID,
     api_key=Depends(get_api_key),
-    # page: int = 0,
-    # entries_per_page: Annotated[int, Query(ge=1, le=100)] = settings.PAGE_SIZE,
 ) -> list[GlucoseResponse]:
     """
     ## Single reading Glucose level endpoint
