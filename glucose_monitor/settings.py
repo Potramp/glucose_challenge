@@ -25,6 +25,7 @@ class Settings(BaseSettings):
 
     api_key_name: str = "apikey"
     api_keys: list[str]
+    PAGE_SIZE: int = 20
 
 
 settings = Settings()  # type: ignore
